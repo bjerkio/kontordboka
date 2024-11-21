@@ -1,16 +1,16 @@
 ---
-import terms from "../../data/terms.json";
+import { getCollection, getEntry } from "astro:content";
+
+const allTerms = await getCollection("terms");
 ---
 
 <div>
   <ul>
     {
-      terms.map(({ termCode, name, alternateName }) => {
+      allTerms.map((term) => {
         return (
           <li>
-            <a href={`/terms/${termCode}`}>
-              {name} - {alternateName}
-            </a>
+            <a href={`/terms/${term.slug}`}>{term.data.title}</a>
           </li>
         );
       })
