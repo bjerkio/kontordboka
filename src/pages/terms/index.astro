@@ -1,0 +1,19 @@
+---
+import terms from "../../data/terms.json";
+---
+
+<div>
+  <ul>
+    {
+      terms.map(({ termCode, name, alternateName }) => {
+        return (
+          <li>
+            <a href={`/terms/${termCode}`}>
+              {name} - {alternateName}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
