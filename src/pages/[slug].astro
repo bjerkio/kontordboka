@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const terms = await getCollection("terms");
+
+  return terms.map((term) => {
+    return {
+      params: { slug: term.slug },
+      props: { term },
+    };
+  });
+}
+
+const { term } = Astro.props;
+
+const { Content } = await term.render();
+
+const { data } = term;
+---
+
+<Layout title={data.title}>
+  <h2>{data.title}</h2>
+  <Content />
+  <div>"{data.no}" in English is "{data.en}"!</div>
+</Layout>
+
+<style>
+  body {
+    font-size: 1em;
+    line-height: 1.5em;
+    margin: 2em auto;
+    max-width: 35em;
+  }
+</style>
